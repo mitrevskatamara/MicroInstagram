@@ -1,0 +1,63 @@
+<div class="posts">
+    <h1>Edit Photo</h1>
+
+    <div class="posts-body">
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" for="postTitleId">Title</label>
+            <div class="col-md-4">
+                <input class="form-control"
+                id="postTitleId"
+                type="text"
+                placeholder="Enter a title"
+                formControlName="postTitle">
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" for="postAlbumId">Album Id</label>
+            <div class="col-md-4">
+                <input class="form-control"
+                id="postAlbumId"
+                type="number"
+                placeholder="Enter an album id"
+                formControlName="postAlbumId">
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" for="postUrlId">Url</label>
+            <div class="col-md-4">
+                <input class="form-control"
+                id="postUrlId"
+                type="text"
+                placeholder="Enter an url"
+                formControlName="postUrl">
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" for="postthumbnailUrlId">Thumbnail Url</label>
+            <div class="col-md-4">
+                <input class="form-control"
+                id="postthumbnailUrlId"
+                type="text"
+                placeholder="Enter a thumbnail url"
+                formControlName="postthumbnailUrl">
+            </div>
+        </div>
+
+        <button class="btn btn-primary mr-2"
+                  style="width:75px;"
+                  type="submit"
+                  >
+            Save
+          </button>
+
+        <button class="btn btn-outline-secondary mr-2"
+                  style="width:75px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/posts']">
+            Cancel
+          </button>
+
+    </div>
+</div>
