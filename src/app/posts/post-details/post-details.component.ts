@@ -14,20 +14,21 @@ import { PostService } from '../post.service';
 })
 export class PostDetailsComponent implements OnInit {
   post!: Post;
-  comment!: Comments;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
     private fb: FormBuilder) { }
 
-
+    
   user: any;
+  //comment!: Comments;
+  comment: any;
   album: any;
   postForm: FormGroup | undefined;
-  comments: Array<Comments> = [];
-  comments1: any;
-  temp: Array<string> = [];
+  comments: Array<string> = [];
+  temp: any;
   ngOnInit(): void {
     const parametar = this.route.snapshot.paramMap.get('id');
 
@@ -38,19 +39,12 @@ export class PostDetailsComponent implements OnInit {
         console.log("Post: ");
         console.log(this.post);
       })
-      this.postService.getCommentsId(id).subscribe((comment: Comments) => {
+      this.postService.getCommentsId(id).subscribe((comment: any)=>{
         this.comment = comment;
-        this.comments.push(comment); 
-        console.log("Comment: ");
-        console.log(this.comment);
-        console.log("###");
-        console.log(this.comments);
+        console.log(comment);
         
       })
       
-      
-      
-
 
     }
 

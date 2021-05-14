@@ -1,28 +1,23 @@
-
 <hr>
 <div class="posts">
 
-    <div *ngFor="let post of posts">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let post of posts" style="max: height 10rem;">
 
-        <div class="card mb-3" 
-        style="max-width: 450px; max-height: 200px;" 
-        [routerLink]="['post', post.id, 'details']">
-            <div class="row">
 
-                <div class="col-md-2">
-                    <img class="card-img-top" src="..." alt="...">
+            <div class="card" style="max-width: 25rem; height: 10rem;">
+
+                <img class="card-img-top" src="..." style="width: 15rem;">
+                <div class="card-body">
+                    <a [routerLink]="[post.id, 'details']" style="text-decoration: none; color: rgb(56, 36, 36);">
+                        <b>{{post?.title}}</b>
+                    </a>
                 </div>
-                <div class="col-md-10">
-                    <div class="card-body">
-                        
-                        <a [routerLink]="[post.id, 'details']" style="text-decoration: none; color: black;">
-                            {{post?.title}}
-                        </a>
-                    </div>
-                </div>
+                <br>
             </div>
-
-
+            <br>
         </div>
-
+        <br>
     </div>
+    <br>
+</div>

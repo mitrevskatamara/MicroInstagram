@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../post';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PostService } from '../post.service';
 
@@ -12,10 +12,9 @@ import { PostService } from '../post.service';
 })
 export class PostEditComponent implements OnInit {
 
-  post: Post | undefined;
+  post!: Post;
   postForm!: FormGroup;
-
-  //private sub: Subscription;
+  
 
   constructor(private router: Router,
     private route: ActivatedRoute, private fb: FormBuilder,
@@ -23,28 +22,48 @@ export class PostEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.postForm = this.fb.group({
-      postTitle: ['', [Validators.required]],
-      postAlbumId: ['', [Validators.required]],
-      postUrl: ['', [Validators.required]],
-      postthumbnailUrl: ['', [Validators.required]],
-
-    });
-
     const parametar = this.route.snapshot.paramMap.get('id');
     if(parametar){
       const id = +parametar;
-        this.postService.getPost(id);
-    }
-  }
+      this.postService.getPost(id).subscribe((post:Post)=>{
+        this.post = post;
+        console.log("Post for editing: ");
+        console.log(post);
 
+      }
+      );
+    
+   
+      this.postForm = this.fb.group({
+        postTitle: ['', [Validators.required]],
+        postAlbumId: ['', [Validators.required]],
+        postUrl: ['', [Validators.required]],
+        postthumbnailUrl: ['', [Validators.required]]
+      });
+    
+    }
+
+  }
+  
 
   onBack(): void{
     this.router.navigate(['/posts']);
   }
+
   savePost(): void {
-    console.log(this.postForm);
-    console.log('New post: ' + JSON.stringify(this.postForm.value));
+   
+    if(confirm(`Do you want to save new post?`)){
+      console.log(this.postForm);
+    
+      this.postService.getPosts().subscribe(data=>{
+        let post: Post = this.postForm.value;
+        this.postService.savePost(post);
+        console.log("Edited post: ");
+        console.log(post);
+        console.log("Post id: ");
+        console.log(post.id);
+      })
+    }
   }
 
 }

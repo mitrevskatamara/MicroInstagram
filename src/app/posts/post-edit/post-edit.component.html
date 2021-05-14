@@ -8,56 +8,100 @@
         [formGroup]="postForm">
         <div class="form-group row mb-2">
             <label class="col-md-2 col-form-label" for="postTitleId">Title</label>
+            </div>
+            <div class="form-group row mb-2">
             <div class="col-md-4">
                 <input class="form-control"
                 id="postTitleId"
                 type="text"
                 placeholder="Enter a title"
-                formControlName="postTitle">
+                formControlName="postTitle"
+                [ngClass]="{'is-invalid': (postForm.controls.postTitle?.touched ||
+                postForm.controls.postTitle?.dirty) &&
+                !postForm.controls.postTitle?.valid }">
+                <span class="invalid-feedback">
+                    <span *ngIf="postForm.controls.postTitle?.errors?.required">
+                      Please enter post title.
+                    </span>
+                </span>
             </div>
         </div>
 
         <div class="form-group row mb-2">
+
             <label class="col-md-2 col-form-label" for="postAlbumId">Album Id</label>
+            </div>
+            <div class="form-group row mb-2">
             <div class="col-md-4">
                 <input class="form-control"
                 id="postAlbumId"
                 type="number"
                 placeholder="Enter an album id"
-                formControlName="postAlbumId">
+                formControlName="postAlbumId"
+                [ngClass]="{'is-invalid': (postForm.controls.postAlbumId?.touched ||
+                postForm.controls.postAlbumId?.dirty) &&
+                !postForm.controls.postAlbumId?.valid }">
+                <span class="invalid-feedback">
+                    <span *ngIf="postForm.controls.postAlbumId?.errors?.required">
+                      Please enter album id.
+                    </span>
+                </span>
             </div>
         </div>
         <div class="form-group row mb-2">
             <label class="col-md-2 col-form-label" for="postUrlId">Url</label>
+        </div>
+        <div class="form-group row mb-2">
             <div class="col-md-4">
                 <input class="form-control"
                 id="postUrlId"
                 type="text"
                 placeholder="Enter an url"
-                formControlName="postUrl">
+                formControlName="postUrl"
+                [ngClass]="{'is-invalid': (postForm.controls.postUrl?.touched ||
+                postForm.controls.postUrl?.dirty) &&
+                !postForm.controls.postUrl?.valid }">
+
+                <span class="invalid-feedback">
+                    <span *ngIf="postForm.controls.postUrl?.errors?.required">
+                      Please enter url.
+                    </span>
+                </span>
             </div>
         </div>
-        <div class="form-group row mb-2">
-            <label class="col-md-2 col-form-label" for="postthumbnailUrlId">Thumbnail Url</label>
+        
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="postthumbnailUrlId">Thumbnail Url</label>
+            </div>
+            <div class="form-group row mb-2">
             <div class="col-md-4">
                 <input class="form-control"
                 id="postthumbnailUrlId"
                 type="text"
                 placeholder="Enter a thumbnail url"
-                formControlName="postthumbnailUrl">
+                formControlName="postthumbnailUrl"
+                [ngClass]="{'is-invalid': (postForm.controls.postthumbnailUrl?.touched ||
+                postForm.controls.postthumbnailUrl?.dirty) &&
+                !postForm.controls.postthumbnailUrl?.valid }">
+                <span class="invalid-feedback">
+                    <span *ngIf="postForm.controls.postthumbnailUrl?.errors?.required">
+                      Please enter thumbnail url.
+                    </span>
+                </span>
             </div>
         </div>
         <br>
-
+        <hr>
+        <br>
         <button class="btn btn-primary mr-2"
-                  style="width:75px;"
+                  style="width:90px"
                   type="submit"
                   >
             Save
           </button>
 
         <button class="btn btn-outline-secondary mr-2"
-                  style="width:75px;"
+                  style="width:90px"
                   type="button"
                   title="Cancel your edits"
                   [routerLink]="['/posts']">
