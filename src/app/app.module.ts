@@ -7,8 +7,9 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostEditComponent } from './posts/post-edit/post-edit.component';
 import { PostDetailsComponent } from './posts/post-details/post-details.component';
-import { PostDeleteComponent } from './posts/post-delete/post-delete.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,19 +17,19 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
     PostsComponent,
     PostEditComponent,
     PostDetailsComponent,
-    PostDeleteComponent,
     PostCreateComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'home', component: AppComponent},
-      { path: 'posts/all', component: PostsComponent},
-      { path: 'posts/edit', component: PostEditComponent},
-      { path: 'posts/details', component: PostDetailsComponent},
-      { path: 'posts/delete', component: PostDeleteComponent},
+      { path: 'posts', component: PostsComponent},
+      { path: 'posts/:id/edit', component: PostEditComponent},
+      { path: 'posts/:id/details', component: PostDetailsComponent},
       { path: 'posts/create', component: PostCreateComponent}
-    ])
+    ]),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

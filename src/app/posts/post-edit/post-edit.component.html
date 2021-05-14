@@ -1,7 +1,11 @@
 <div class="posts">
+    <hr>
     <h1>Edit Photo</h1>
 
     <div class="posts-body">
+        <hr>
+        <form novalidate (ngSubmit)="savePost()"
+        [formGroup]="postForm">
         <div class="form-group row mb-2">
             <label class="col-md-2 col-form-label" for="postTitleId">Title</label>
             <div class="col-md-4">
@@ -43,6 +47,7 @@
                 formControlName="postthumbnailUrl">
             </div>
         </div>
+        <br>
 
         <button class="btn btn-primary mr-2"
                   style="width:75px;"
@@ -58,6 +63,6 @@
                   [routerLink]="['/posts']">
             Cancel
           </button>
-
+        </form>
     </div>
 </div>
