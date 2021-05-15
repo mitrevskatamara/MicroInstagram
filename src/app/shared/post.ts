@@ -1,3 +1,4 @@
+
 export interface Post{
     albumId: number,
     id: number,

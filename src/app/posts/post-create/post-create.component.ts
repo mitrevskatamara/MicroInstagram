@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Post } from '../post';
+import { Post } from '../../shared/post';
 import { PostService } from '../post.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { PostService } from '../post.service';
 export class PostCreateComponent implements OnInit {
 
   
-  post: any;
+  //post: any;
   newId!: number;
   postForm!: FormGroup;
   postTitle1!: FormControl;
@@ -23,7 +23,7 @@ export class PostCreateComponent implements OnInit {
   
     
   }
-  
+  post!: Post;
   ngOnInit(): void {
      this.postForm = this.fb.group({
       postTitle: ['', [Validators.required]],

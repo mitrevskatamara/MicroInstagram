@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../post';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Post } from '../../shared/post';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PostService } from '../post.service';
 
@@ -13,56 +13,83 @@ import { PostService } from '../post.service';
 export class PostEditComponent implements OnInit {
 
   post!: Post;
-  postForm!: FormGroup;
+
+  postForm = new FormGroup({
+    postTitle: new FormControl('', Validators.required),
+    postAlbumId: new FormControl('', Validators.required),
+    postUrl: new FormControl('', Validators.required),
+    postthumbnailUrl: new FormControl('', Validators.required)
+
+  });
   
 
-  constructor(private router: Router,
-    private route: ActivatedRoute, private fb: FormBuilder,
-    private postService: PostService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder,
+              private postService: PostService, ) { }
 
   ngOnInit(): void {
 
     const parametar = this.route.snapshot.paramMap.get('id');
     if(parametar){
       const id = +parametar;
-      this.postService.getPost(id).subscribe((post:Post)=>{
-        this.post = post;
+      this.postService.getPost(id).subscribe((p:Post)=>{
+        this.post = p;
         console.log("Post for editing: ");
-        console.log(post);
+        console.log(p);
+        console.log(this.post.albumId);
+  
+        this.displayPost(p);
 
       }
       );
-    
-   
-      this.postForm = this.fb.group({
-        postTitle: ['', [Validators.required]],
-        postAlbumId: ['', [Validators.required]],
-        postUrl: ['', [Validators.required]],
-        postthumbnailUrl: ['', [Validators.required]]
-      });
-    
     }
 
   }
-  
+
+  displayPost(post: Post): void {
+    if (this.postForm) {
+      this.postForm.reset();
+    }
+    this.post = post;
+
+    this.postForm.patchValue({
+      postTitle: this.post.title,
+      postAlbumId: this.post.albumId,
+      postUrl: this.post.url,
+      postthumbnailUrl: this.post.thumbnailUrl
+    });
+    
+    
+  }
+
 
   onBack(): void{
     this.router.navigate(['/posts']);
   }
-
   savePost(): void {
-   
-    if(confirm(`Do you want to save new post?`)){
-      console.log(this.postForm);
-    
-      this.postService.getPosts().subscribe(data=>{
-        let post: Post = this.postForm.value;
-        this.postService.savePost(post);
-        console.log("Edited post: ");
-        console.log(post);
-        console.log("Post id: ");
-        console.log(post.id);
-      })
+    if (this.postForm.valid) {
+      if (this.postForm.dirty) {
+        const p = { ...this.post, ...this.postForm.value };
+          this.postService.updatePost(p)
+            .subscribe({
+              next: () => this.onSaveComplete(),
+              
+            });
+        
+      } else {
+        this.onSaveComplete();
+      }
+    }
+  }
+
+  onSaveComplete(): void {
+    // Reset the form to clear the flags
+    this.postForm.reset();
+    this.router.navigate(['/posts']);
+  }
+
+  cancel():void{
+    if(confirm(`Do you want to go back?`)){
+      this.router.navigate(['/posts']);
     }
   }
 

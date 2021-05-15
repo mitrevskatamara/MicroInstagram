@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from './post';
+import { Post } from '../shared/post';
 import { PostService } from './post.service';
 
 @Component({
@@ -12,9 +12,9 @@ export class PostsComponent implements OnInit {
   
    posts: Post[] = [];
 
+   @Input() post: any;
    constructor(private postService: PostService, private router: Router) { }
 
-   @Input() post: any;
    ngOnInit(): void {
      this.postService.getPosts().subscribe({
        next: posts =>{

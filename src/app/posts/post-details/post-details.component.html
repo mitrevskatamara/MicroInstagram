@@ -16,47 +16,43 @@
         </div>
         <br>
         <div class="row">
-          
+
           <div class="col-md-8">
             <h4>Album id: <b>{{post?.albumId}}</b></h4>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <h4>Comments on this post:</h4>
+            <br>
+            <button class="btn btn-outline-secondary" (click)='showComments()'>{{comments ? 'Hide': 'Show'}}
+              comments</button>
+
           </div>
-          <div class="col-md-10" *ngFor="let com of comment">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><b>{{com?.name}}</b> <br>  User's email: <i>{{com?.email}} </i></li>
+          <div class="col-md-10" *ngIf='comments'>
+            <ul class="list-group list-group-flush" *ngFor="let com of comment">
+              <li class="list-group-item"><b>{{com?.email}}</b>: {{com?.body}}</li>
             </ul>
           </div>
         </div>
 
-
-      
-
-
+      </div>
 
     </div>
 
-  </div>
 
-
-  <hr>
-  <br>
-  <div class="btn-toolbar">
-    <button class="btn btn-outline-success mr-2" style="width:90px" (click)="edit()">
-      Edit
-    </button>
-    <button class="btn btn-outline-danger mr-2" style="width:90px;" type="button" title="Delete post" (click)="delete()"
-      [routerLink]="['/posts']">
-      Delete
-    </button>
-    <button class="btn btn-outline-secondary mr-2" style="width:90px;" type="button" title="Back to posts"
-      [routerLink]="['/posts']">
-      Back
-    </button>
-    <br><br>
+    <hr>
+    <br>
+    <div class="btn-toolbar">
+      <button class="btn btn-outline-success mr-2" style="width:90px" type="button" (click)="edit()">
+        Edit
+      </button>
+      <button class="btn btn-outline-danger mr-2" style="width:90px;" type="button" (click)="delete()">
+        Delete
+      </button>
+      <button class="btn btn-outline-secondary mr-2" style="width:90px;" type="button" (click)="back()">
+        Back
+      </button>
+      <br><br>
+    </div>
   </div>
-</div>
 </div>
