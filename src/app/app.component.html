@@ -1,9 +1,9 @@
-<div>
+<div class="body">
   <nav class='navbar navbar-expand navbar-light bg-light'>
-    <img class='navbar-brand' src="assets/images/840px-Instagram_logo.svg.png" style="height: 50px;">
+    <a [routerLink]="['/welcome']"><img class='navbar-brand' src="assets/images/logo.png" style="height: 55px;"></a>
       <ul class='nav nav-pills'>
-        <li><a class='nav-link' [routerLink]="['/posts']" style="text-decoration:none; color: black;">Home</a></li>
-        <li><a class='nav-link' [routerLink]="['/posts/create']" style="text-decoration:none; color: black;">Create new post</a></li>
+        <li><a class='nav-link' [routerLink]="['/posts']"><b>Home</b></a></li>
+        <li><a class='nav-link' [routerLink]="['/posts/create']"><b>Create new post</b></a></li>
       </ul>
   </nav>
   <div class='container'>

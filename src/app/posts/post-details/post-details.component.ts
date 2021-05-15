@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Comments } from '../comments';
-import { Post } from '../../shared/post';
+import { Post } from '../post';
 import { PostService } from '../post.service';
 
 
@@ -14,17 +14,18 @@ import { PostService } from '../post.service';
 })
 export class PostDetailsComponent implements OnInit {
 
+  post!: Post;
+  comment: any;
+  album: any;
+  postForm!: FormGroup;
+  comments: boolean = false;
   
   constructor(private route: ActivatedRoute,private router: Router,private postService: PostService,
               private fb: FormBuilder) {}
 
 
-              post!: Post;
-  comment: any;
-  postForm!: FormGroup;
-  comments: boolean = false;
-
   ngOnInit(): void {
+
     const parametar = this.route.snapshot.paramMap.get('id');
 
     if (parametar) {
@@ -32,19 +33,21 @@ export class PostDetailsComponent implements OnInit {
       this.postService.getPost(id).subscribe((post: Post) => {
         this.post = post;
         console.log("Post: ");
-        console.log(this.post);
+        console.log(post)
+        
+        this.postService.getAlbum(post.albumId).subscribe((album:any)=>{
+          this.album = album;
+          console.log("Album: ");
+          console.log(album)
+        })  
       })
-      this.postService.getCommentsId(id).subscribe((comment: any) => {
+
+      this.postService.getComment(id).subscribe((comment: any) => {
         this.comment = comment;
         console.log("Comments on post: ");
-        console.log(comment);
-
+        console.log(comment)
       })
     }
-  }
-
-  onBack(): void {
-    this.router.navigate(['/posts']);
   }
 
   edit(): void {
@@ -66,9 +69,5 @@ export class PostDetailsComponent implements OnInit {
       this.router.navigate(['/posts']);
     }
   }
-
-
-
-
 
 }

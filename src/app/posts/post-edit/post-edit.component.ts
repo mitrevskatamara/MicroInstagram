@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../../shared/post';
+import { Post } from '../post';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PostService } from '../post.service';
@@ -21,26 +21,23 @@ export class PostEditComponent implements OnInit {
     postthumbnailUrl: new FormControl('', Validators.required)
 
   });
-  
 
   constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder,
-              private postService: PostService, ) { }
+    private postService: PostService,) { }
 
   ngOnInit(): void {
 
     const parametar = this.route.snapshot.paramMap.get('id');
-    if(parametar){
+    if (parametar) {
       const id = +parametar;
-      this.postService.getPost(id).subscribe((p:Post)=>{
+      this.postService.getPost(id).subscribe((p: Post) => {
         this.post = p;
         console.log("Post for editing: ");
         console.log(p);
-        console.log(this.post.albumId);
-  
+
         this.displayPost(p);
 
-      }
-      );
+      });
     }
 
   }
@@ -57,24 +54,19 @@ export class PostEditComponent implements OnInit {
       postUrl: this.post.url,
       postthumbnailUrl: this.post.thumbnailUrl
     });
-    
-    
+
   }
 
-
-  onBack(): void{
-    this.router.navigate(['/posts']);
-  }
   savePost(): void {
     if (this.postForm.valid) {
       if (this.postForm.dirty) {
         const p = { ...this.post, ...this.postForm.value };
-          this.postService.updatePost(p)
-            .subscribe({
-              next: () => this.onSaveComplete(),
-              
-            });
-        
+        this.postService.updatePost(p)
+          .subscribe({
+            next: () => this.onSaveComplete(),
+
+          });
+
       } else {
         this.onSaveComplete();
       }
@@ -82,13 +74,12 @@ export class PostEditComponent implements OnInit {
   }
 
   onSaveComplete(): void {
-    // Reset the form to clear the flags
     this.postForm.reset();
     this.router.navigate(['/posts']);
   }
 
-  cancel():void{
-    if(confirm(`Do you want to go back?`)){
+  cancel(): void {
+    if (confirm(`Do you want to go back?`)) {
       this.router.navigate(['/posts']);
     }
   }

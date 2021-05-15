@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { Post } from "../shared/post";
+import { Post } from "./post";
 import { catchError, tap, map } from 'rxjs/operators';
 import { Comments } from "./comments";
 
@@ -19,8 +19,7 @@ export class PostService {
 
     getPosts(): Observable<Post[]> {
         return this.http.get<Post[]>(this.posturl).pipe(
-            //tap(data => console.log(JSON.stringify(data)))
-
+            //tap(posts => console.log(JSON.stringify(posts)))
         );
     }
 
@@ -45,7 +44,7 @@ export class PostService {
 
         );
     }
-    getCommentsId(id: number): Observable<Comments> {
+    getComment(id: number): Observable<Comments> {
         const url = `${this.url}/posts/${id}/comments`;
         return this.http.get<Comments>(url);
     }
@@ -73,17 +72,6 @@ export class PostService {
                 // Return the product on an update
                 map(() => post),
             );
-    }
-    private initializePost(): Post {
-        // Return an initialized object
-        return {
-            albumId: 0,
-            id: 0,
-            title: '',
-            url: '',
-            thumbnailUrl: ''
-
-        };
     }
 
 }

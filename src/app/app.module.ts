@@ -4,32 +4,24 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostsComponent } from './posts/posts.component';
-import { PostEditComponent } from './posts/post-edit/post-edit.component';
-import { PostDetailsComponent } from './posts/post-details/post-details.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { PostModule } from './posts/post.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,
-    PostEditComponent,
-    PostDetailsComponent,
-    PostCreateComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'posts', component: PostsComponent},
-      { path: 'posts/:id/edit', component: PostEditComponent},
-      { path: 'posts/:id/details', component: PostDetailsComponent},
-      { path: 'posts/create', component: PostCreateComponent}
+      { path: 'welcome', component: HomeComponent},
+      { path: '', redirectTo: 'welcome', pathMatch: 'full'}
     ]),
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
+    PostModule
   ],
   providers: [],
   bootstrap: [AppComponent]

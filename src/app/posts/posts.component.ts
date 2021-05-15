@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from '../shared/post';
+import { Post } from './post';
 import { PostService } from './post.service';
 
 @Component({
@@ -12,7 +12,6 @@ export class PostsComponent implements OnInit {
   
    posts: Post[] = [];
 
-   @Input() post: any;
    constructor(private postService: PostService, private router: Router) { }
 
    ngOnInit(): void {

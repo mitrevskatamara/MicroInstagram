@@ -1,0 +1,8 @@
+.container, .navbar{
+    font-family: Proxima Nova;
+   
+}
+a{
+    text-decoration:none; 
+    color: rgb(70, 54, 54);
+}
