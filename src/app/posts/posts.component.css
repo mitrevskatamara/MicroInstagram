@@ -6,3 +6,7 @@
 .card{
     background-color: whitesmoke;
 }
+a{
+    text-decoration: none; 
+    color: rgb(56, 36, 36);
+}

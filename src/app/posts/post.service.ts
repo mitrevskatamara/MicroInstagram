@@ -69,7 +69,6 @@ export class PostService {
         return this.http.put<Post>(url, post, { headers })
             .pipe(
                 tap(() => console.log('Updated post id: ' + post.id)),
-                // Return the product on an update
                 map(() => post),
             );
     }

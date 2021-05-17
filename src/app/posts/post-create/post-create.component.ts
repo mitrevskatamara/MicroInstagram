@@ -29,17 +29,18 @@ export class PostCreateComponent implements OnInit {
   save(): void {
 
     if (confirm(`Do you want to save new post?`)) {
-      console.log(this.postForm);
-
+    
       this.postService.getPosts().subscribe(data => {
-        this.newId = Math.max.apply(Math, data.map(obj => obj.id));
+        this.newId = data.length+1;
         let post: Post = this.postForm.value;
         post.id = this.newId;
         this.postService.savePost(post);
         console.log("New post: ");
         console.log(post);
       })
+      
     }
+    this.router.navigate(['/posts']);
 
   }
 

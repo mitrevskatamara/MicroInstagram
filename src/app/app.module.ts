@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { PostModule } from './posts/post.module';
 
@@ -16,9 +15,11 @@ import { PostModule } from './posts/post.module';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     RouterModule.forRoot([
       { path: 'welcome', component: HomeComponent},
-      { path: '', redirectTo: 'welcome', pathMatch: 'full'}
+      { path: '', redirectTo: 'welcome', pathMatch: 'full'},
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
     ]),
     HttpClientModule,
     PostModule

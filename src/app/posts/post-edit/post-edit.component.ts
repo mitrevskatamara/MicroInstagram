@@ -64,9 +64,7 @@ export class PostEditComponent implements OnInit {
         this.postService.updatePost(p)
           .subscribe({
             next: () => this.onSaveComplete(),
-
           });
-
       } else {
         this.onSaveComplete();
       }
@@ -74,8 +72,11 @@ export class PostEditComponent implements OnInit {
   }
 
   onSaveComplete(): void {
-    this.postForm.reset();
-    this.router.navigate(['/posts']);
+    if(confirm(`Do you want to save changes?`)){
+      this.postForm.reset();
+      this.router.navigate(['/posts']);
+    }
+    
   }
 
   cancel(): void {
